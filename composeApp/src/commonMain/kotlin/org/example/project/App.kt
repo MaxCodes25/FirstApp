@@ -1,44 +1,29 @@
 package org.example.project
 
-import androidx.compose.animation.AnimatedVisibility
-import androidx.compose.foundation.Image
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.safeContentPadding
-import androidx.compose.material3.Button
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Text
+import androidx.compose.foundation.layout.*
+import androidx.compose.material.MaterialTheme
+import androidx.compose.material.Surface
 import androidx.compose.runtime.*
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import org.jetbrains.compose.resources.painterResource
-import org.jetbrains.compose.ui.tooling.preview.Preview
-
-import firstapp.composeapp.generated.resources.Res
-import firstapp.composeapp.generated.resources.compose_multiplatform
+import org.example.project.model.PokemonCard
+import org.example.project.ui.CardListScreen
 
 @Composable
-@Preview
 fun App() {
+    val dummyCards = listOf(
+        PokemonCard("1", "Glurak", "150/165", 129.99f),
+        PokemonCard("2", "Pikachu", "25/25", 5.49f),
+        PokemonCard("3", "Turtok", "20/102", 39.00f)
+    )
+
     MaterialTheme {
-        var showContent by remember { mutableStateOf(false) }
-        Column(
-            modifier = Modifier
-                .safeContentPadding()
-                .fillMaxSize(),
-            horizontalAlignment = Alignment.CenterHorizontally,
-        ) {
-            Button(onClick = { showContent = !showContent }) {
-                Text("Click me!")
-            }
-            AnimatedVisibility(showContent) {
-                val greeting = remember { Greeting().greet() }
-                Column(Modifier.fillMaxWidth(), horizontalAlignment = Alignment.CenterHorizontally) {
-                    Image(painterResource(Res.drawable.compose_multiplatform), null)
-                    Text("Compose: $greeting")
+        Surface(modifier = Modifier.fillMaxSize()) {
+            CardListScreen(
+                cards = dummyCards,
+                onAddClick = {
+                    // z. B. neuen Screen öffnen
                 }
-            }
+            )
         }
     }
 }
